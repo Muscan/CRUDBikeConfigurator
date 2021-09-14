@@ -167,7 +167,19 @@ namespace BikeConfigurator
             if (AtLeastOneElemInTheList(bikeController.getBikeList())
             && ElemFromListSelected(lstBoxProduse))
             {
+                int index = lstBoxProduse.SelectedIndex;
+                bikeController.getBikeList().RemoveAt(index);
+                bindingSource.DataSource = bikeController.getBikeList();
+                lstBoxProduse.DataSource = bindingSource;
+                lstBoxProduse.DisplayMember = "Display";
+                lstBoxProduse.ValueMember = "Display";
+                bindingSource.ResetBindings(false);
 
+                ResetButtons(rdoBtnShimano, rdobtnPegas);
+                ResetButtons(rdoBtn2Viteze, rdoBtn18Viteze);
+                ResetButtons(rdoBtnRosie, rdoBtnVerde);
+                ResetTextBox(txtBoxCustomer);
+                bikeController.WriteToFile();
             }
         }
     }
