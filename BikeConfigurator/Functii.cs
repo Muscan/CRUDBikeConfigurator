@@ -31,5 +31,36 @@ namespace BikeConfigurator
             }
             return true;
         }
+
+        public static void ResetButtons(RadioButton rdo1, RadioButton rdo2)
+        {
+            rdo1.Checked = false;
+            rdo2.Checked = false;
+        }
+
+        public static void ResetTextBox(TextBox text)
+        {
+            text.Text = "";
+        }
+
+        public static bool ElemFromListSelected(ListBox lstBox)
+        {
+            if (lstBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("First READ then select.");
+                return false;
+            }
+            return true;
+        }
+
+        public static bool AtLeastOneElemInTheList(List<Bike> bikes)
+        {
+            if (bikes.Count == 0)
+            {
+                MessageBox.Show("No elem. in the list. Add one before going further.");
+                return false;
+            }
+            return true;
+        }
     }
 }

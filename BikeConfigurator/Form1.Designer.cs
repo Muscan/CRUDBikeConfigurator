@@ -30,7 +30,7 @@ namespace BikeConfigurator
         private void InitializeComponent()
         {
             this.lblRezultate = new System.Windows.Forms.Label();
-            this.btnCalculeaza = new System.Windows.Forms.Button();
+            this.btnOrder = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.lstBoxProduse = new System.Windows.Forms.ListBox();
             this.btnCreate = new System.Windows.Forms.Button();
@@ -39,7 +39,6 @@ namespace BikeConfigurator
             this.btnDelete = new System.Windows.Forms.Button();
             this.grpBoxCRUD = new System.Windows.Forms.GroupBox();
             this.grpBoxActions = new System.Windows.Forms.GroupBox();
-            this.lstBoxAdded = new System.Windows.Forms.ListBox();
             this.grpBoxModel = new System.Windows.Forms.GroupBox();
             this.rdobtnPegas = new System.Windows.Forms.RadioButton();
             this.rdoBtnShimano = new System.Windows.Forms.RadioButton();
@@ -68,16 +67,16 @@ namespace BikeConfigurator
             this.lblRezultate.Text = "Rezultatelele configurarii";
             this.lblRezultate.Visible = false;
             // 
-            // btnCalculeaza
+            // btnOrder
             // 
-            this.btnCalculeaza.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnCalculeaza.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnCalculeaza.Location = new System.Drawing.Point(6, 31);
-            this.btnCalculeaza.Name = "btnCalculeaza";
-            this.btnCalculeaza.Size = new System.Drawing.Size(127, 37);
-            this.btnCalculeaza.TabIndex = 4;
-            this.btnCalculeaza.Text = "Calculeaza";
-            this.btnCalculeaza.UseVisualStyleBackColor = false;
+            this.btnOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnOrder.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnOrder.Location = new System.Drawing.Point(6, 31);
+            this.btnOrder.Name = "btnOrder";
+            this.btnOrder.Size = new System.Drawing.Size(127, 37);
+            this.btnOrder.TabIndex = 4;
+            this.btnOrder.Text = "Order";
+            this.btnOrder.UseVisualStyleBackColor = false;
             // 
             // btnReset
             // 
@@ -99,7 +98,7 @@ namespace BikeConfigurator
             "ProduseTest.."});
             this.lstBoxProduse.Location = new System.Drawing.Point(46, 356);
             this.lstBoxProduse.Name = "lstBoxProduse";
-            this.lstBoxProduse.Size = new System.Drawing.Size(221, 220);
+            this.lstBoxProduse.Size = new System.Drawing.Size(544, 220);
             this.lstBoxProduse.TabIndex = 6;
             this.lstBoxProduse.SelectedIndexChanged += new System.EventHandler(this.lstBoxProduse_SelectedIndexChanged);
             // 
@@ -127,6 +126,7 @@ namespace BikeConfigurator
             this.btnRead.TabIndex = 8;
             this.btnRead.Text = "Read";
             this.btnRead.UseVisualStyleBackColor = true;
+            this.btnRead.Click += new System.EventHandler(this.btnRead_Click);
             // 
             // btnUpdate
             // 
@@ -139,6 +139,7 @@ namespace BikeConfigurator
             this.btnUpdate.TabIndex = 9;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
@@ -151,6 +152,7 @@ namespace BikeConfigurator
             this.btnDelete.TabIndex = 10;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // grpBoxCRUD
             // 
@@ -159,7 +161,7 @@ namespace BikeConfigurator
             this.grpBoxCRUD.Controls.Add(this.btnRead);
             this.grpBoxCRUD.Controls.Add(this.btnUpdate);
             this.grpBoxCRUD.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.grpBoxCRUD.Location = new System.Drawing.Point(273, 339);
+            this.grpBoxCRUD.Location = new System.Drawing.Point(596, 342);
             this.grpBoxCRUD.Name = "grpBoxCRUD";
             this.grpBoxCRUD.Size = new System.Drawing.Size(141, 234);
             this.grpBoxCRUD.TabIndex = 11;
@@ -168,7 +170,7 @@ namespace BikeConfigurator
             // 
             // grpBoxActions
             // 
-            this.grpBoxActions.Controls.Add(this.btnCalculeaza);
+            this.grpBoxActions.Controls.Add(this.btnOrder);
             this.grpBoxActions.Controls.Add(this.btnReset);
             this.grpBoxActions.Controls.Add(this.lblRezultate);
             this.grpBoxActions.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -178,16 +180,6 @@ namespace BikeConfigurator
             this.grpBoxActions.TabIndex = 12;
             this.grpBoxActions.TabStop = false;
             this.grpBoxActions.Text = "Actions";
-            // 
-            // lstBoxAdded
-            // 
-            this.lstBoxAdded.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lstBoxAdded.FormattingEnabled = true;
-            this.lstBoxAdded.ItemHeight = 24;
-            this.lstBoxAdded.Location = new System.Drawing.Point(429, 353);
-            this.lstBoxAdded.Name = "lstBoxAdded";
-            this.lstBoxAdded.Size = new System.Drawing.Size(221, 220);
-            this.lstBoxAdded.TabIndex = 13;
             // 
             // grpBoxModel
             // 
@@ -290,11 +282,12 @@ namespace BikeConfigurator
             // 
             // txtBoxCustomer
             // 
-            this.txtBoxCustomer.Location = new System.Drawing.Point(855, 143);
+            this.txtBoxCustomer.Location = new System.Drawing.Point(52, 81);
             this.txtBoxCustomer.Name = "txtBoxCustomer";
-            this.txtBoxCustomer.Size = new System.Drawing.Size(125, 27);
+            this.txtBoxCustomer.Size = new System.Drawing.Size(777, 27);
             this.txtBoxCustomer.TabIndex = 17;
             this.txtBoxCustomer.Text = "Customer";
+            this.txtBoxCustomer.TextChanged += new System.EventHandler(this.txtBoxCustomer_TextChanged);
             // 
             // Form1
             // 
@@ -305,7 +298,6 @@ namespace BikeConfigurator
             this.Controls.Add(this.grpBoxCuloare);
             this.Controls.Add(this.grpBoxViteze);
             this.Controls.Add(this.grpBoxModel);
-            this.Controls.Add(this.lstBoxAdded);
             this.Controls.Add(this.grpBoxActions);
             this.Controls.Add(this.grpBoxCRUD);
             this.Controls.Add(this.lstBoxProduse);
@@ -327,7 +319,7 @@ namespace BikeConfigurator
 
         #endregion
         private System.Windows.Forms.Label lblRezultate;
-        private System.Windows.Forms.Button btnCalculeaza;
+        private System.Windows.Forms.Button btnOrder;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.ListBox lstBoxProduse;
         private System.Windows.Forms.Button btnCreate;
@@ -336,7 +328,6 @@ namespace BikeConfigurator
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.GroupBox grpBoxCRUD;
         private System.Windows.Forms.GroupBox grpBoxActions;
-        private System.Windows.Forms.ListBox lstBoxAdded;
         private System.Windows.Forms.GroupBox grpBoxModel;
         private System.Windows.Forms.RadioButton rdobtnPegas;
         private System.Windows.Forms.RadioButton rdoBtnShimano;

@@ -20,10 +20,7 @@ namespace BikeConfigurator
             InitializeComponent();
             bikeController = new BikeController();
             
-            bindingSource.DataSource = bikeController.getBikeList();
-            lstBoxProduse.DataSource = bindingSource;
-            lstBoxProduse.DisplayMember = "Display";
-            lstBoxProduse.ValueMember = "Display";
+           
 
         }
 
@@ -38,6 +35,7 @@ namespace BikeConfigurator
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            lstBoxProduse.DataSource = null;
             if(isSelected(grpBoxModel,rdoBtnShimano, rdobtnPegas) 
             && isSelected(grpBoxViteze, rdoBtn2Viteze, rdoBtn18Viteze)
             && isSelected(grpBoxCuloare, rdoBtnRosie, rdoBtnVerde)
@@ -72,13 +70,105 @@ namespace BikeConfigurator
                 bikeController.Add(bike);
                 bikeController.WriteToFile();
                 bindingSource.ResetBindings(false);
+                List<Bike> bikes = new List<Bike>();
+                bikes.Add(bike);
+                lstBoxProduse.DataSource = bikes;
+                lstBoxProduse.DisplayMember = "Display";
+                lstBoxProduse.ValueMember = "Display";
             }
-                
+            ResetButtons(rdoBtnShimano, rdobtnPegas);
+            ResetButtons(rdoBtn2Viteze, rdoBtn18Viteze);
+            ResetButtons(rdoBtnRosie, rdoBtnVerde);
+            ResetTextBox(txtBoxCustomer);
         }
 
         private void rdoBtn2Viteze_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnRead_Click(object sender, EventArgs e)
+        {
+            lstBoxProduse.Visible = true;
+            bindingSource.DataSource = bikeController.getBikeList();
+            lstBoxProduse.DataSource = bindingSource;
+            lstBoxProduse.DisplayMember = "Display";
+            lstBoxProduse.ValueMember = "Display";
+
+            ResetButtons(rdoBtnShimano, rdobtnPegas);
+            ResetButtons(rdoBtn2Viteze, rdoBtn18Viteze);
+            ResetButtons(rdoBtnRosie, rdoBtnVerde);
+            ResetTextBox(txtBoxCustomer);
+
+        }
+
+        private void txtBoxCustomer_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            //toate selectate
+            //sa fie cel putin una in lista
+            //update
+            if (AtLeastOneElemInTheList(bikeController.getBikeList())
+            && ElemFromListSelected(lstBoxProduse)
+            && isSelected(grpBoxModel, rdoBtnShimano, rdobtnPegas)
+            && isSelected(grpBoxViteze, rdoBtn2Viteze, rdoBtn18Viteze)
+            && isSelected(grpBoxCuloare, rdoBtnRosie, rdoBtnVerde)
+            && isFilled(txtBoxCustomer))
+            {
+                int index = lstBoxProduse.SelectedIndex;
+                Bike bike = new Bike();
+                if (rdoBtnShimano.Checked == true)
+                {
+                    bike.setModel(rdoBtnShimano.Text);
+                }
+                else
+                {
+                    bike.setModel(rdobtnPegas.Text);
+                }
+                if (rdoBtn2Viteze.Checked == true)
+                {
+                    bike.setViteze(int.Parse(rdoBtn2Viteze.Text));
+                }
+                else
+                {
+                    bike.setViteze(int.Parse(rdoBtn18Viteze.Text));
+                }
+                if (rdoBtnRosie.Checked == true)
+                {
+                    bike.setCuloare(rdoBtnRosie.Text);
+                }
+                else
+                {
+                    bike.setCuloare(rdoBtnVerde.Text);
+                }
+                bike.setCustomer(txtBoxCustomer.Text);
+                bikeController.getBikeList()[index] = bike;
+                bikeController.WriteToFile();
+                bindingSource.ResetBindings(false);
+                List<Bike> bikes = new List<Bike>();
+                bikes.Add(bike);
+                lstBoxProduse.DataSource = bikes;
+                lstBoxProduse.DisplayMember = "Display";
+                lstBoxProduse.ValueMember = "Display";
+
+                ResetButtons(rdoBtnShimano, rdobtnPegas);
+                ResetButtons(rdoBtn2Viteze, rdoBtn18Viteze);
+                ResetButtons(rdoBtnRosie, rdoBtnVerde);
+                ResetTextBox(txtBoxCustomer);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (AtLeastOneElemInTheList(bikeController.getBikeList())
+            && ElemFromListSelected(lstBoxProduse))
+            {
+
+            }
         }
     }
 }

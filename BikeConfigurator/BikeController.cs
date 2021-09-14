@@ -33,7 +33,7 @@ namespace BikeConfigurator
             readLines = streamReader.ReadLine();
             while (readLines != null)
             {//(String Model, int Viteze, String Customer, String Culoare)
-                string[] splitInCuvinte = readLines.Split(",");
+                string[] splitInCuvinte = readLines.Split(',','.');
                 
                 string model = splitInCuvinte[0];
                 int viteze = int.Parse(splitInCuvinte[1]);
@@ -67,6 +67,12 @@ namespace BikeConfigurator
         {
             bikes.Add(bike);
         }
+
+        public int NrItems()
+        {
+            return bikes.Count;
+        }
+       
 
     }
 }
